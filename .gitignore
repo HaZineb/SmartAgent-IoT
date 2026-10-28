@@ -1,0 +1,11 @@
+# Fichiers générés par Maven
+target/
+*.class
+
+# Données temporaires du client MQTT Eclipse Paho
+paho*-tcplocalhost*/
+
+# Fichiers temporaires des éditeurs
+.vscode/
+.idea/
+*.iml
