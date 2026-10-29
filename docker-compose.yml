@@ -7,3 +7,26 @@ services:
     volumes:
       - ./docker/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
     restart: unless-stopped
+
+  openhab:
+    image: openhab/openhab:4.3.10
+    container_name: smartagent-openhab
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - openhab_addons:/openhab/addons
+      - openhab_conf:/openhab/conf
+      - openhab_userdata:/openhab/userdata
+    environment:
+      - USER_ID=9001
+      - GROUP_ID=9001
+      - CRYPTO_POLICY=unlimited
+      - EXTRA_JAVA_OPTS=-Duser.timezone=America/Toronto
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+
+volumes:
+  openhab_addons:
+  openhab_conf:
+  openhab_userdata:
