@@ -9,3 +9,10 @@ paho*-tcplocalhost*/
 .vscode/
 .idea/
 *.iml
+.classpath
+.project
+.settings/
+
+# Fichiers temporaires du système
+.DS_Store
+Thumbs.db

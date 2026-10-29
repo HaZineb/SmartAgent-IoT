@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  POM parent du projet SmartAgent-IoT.
+  Il centralise la version de Java, les versions des dépendances et des plugins,
+  afin que tous les modules (et toutes les personnes de l'équipe) compilent de la même façon,
+  quelle que soit la version de Maven installée (3.8.x ou 3.9.x).
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ca.udes.smartagent</groupId>
+    <artifactId>smartagent-iot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>SmartAgent-IoT</name>
+
+    <modules>
+        <!-- À AJOUTER par la personne responsable du simulateur quand le dossier existera :
+             <module>sensor-simulator</module>
+             (Maven refuse de compiler si un module listé n'existe pas encore.) -->
+        <module>agent-piece</module>
+        <module>coordinateur</module>
+    </modules>
+
+    <properties>
+        <!-- Cible Java 21, même si le JDK installé est plus récent -->
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <paho.version>1.2.5</paho.version>
+        <gson.version>2.11.0</gson.version>
+        <junit.version>5.11.4</junit.version>
+    </properties>
+
+    <!-- Versions communes : les modules déclarent la dépendance sans répéter la version -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ca.udes.smartagent</groupId>
+                <artifactId>agent-piece</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${paho.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <!-- Versions de plugins figées : avec Maven 3.8.x, les versions par défaut sont trop
+             anciennes (release 21 mal géré, tests JUnit 5 non exécutés). -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.5.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.4.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.1.3</version>
+                </plugin>
+                <!-- Produit un JAR « tout-en-un » (code + Paho + Gson) lançable avec java -cp -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.6.0</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals><goal>shade</goal></goals>
+                            <configuration>
+                                <shadedArtifactAttached>true</shadedArtifactAttached>
+                                <shadedClassifierName>all</shadedClassifierName>
+                                <createDependencyReducedPom>false</createDependencyReducedPom>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
