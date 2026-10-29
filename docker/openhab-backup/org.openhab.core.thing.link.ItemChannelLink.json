@@ -1,0 +1,230 @@
+{
+  "Luminosite_Cuisine -\u003e mqtt:topic:mosquitto:cuisine:luminosite": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "cuisine",
+          "luminosite"
+        ],
+        "uid": "mqtt:topic:mosquitto:cuisine:luminosite"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Luminosite_Cuisine"
+    }
+  },
+  "Luminosite_SalleA -\u003e mqtt:topic:mosquitto:salle_a:luminosite": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "salle_a",
+          "luminosite"
+        ],
+        "uid": "mqtt:topic:mosquitto:salle_a:luminosite"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Luminosite_SalleA"
+    }
+  },
+  "Luminosite_SalleB -\u003e mqtt:topic:mosquitto:salle_b:luminosite": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "salle_b",
+          "luminosite"
+        ],
+        "uid": "mqtt:topic:mosquitto:salle_b:luminosite"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Luminosite_SalleB"
+    }
+  },
+  "Occupation_Cuisine -\u003e mqtt:topic:mosquitto:cuisine:occupation": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "cuisine",
+          "occupation"
+        ],
+        "uid": "mqtt:topic:mosquitto:cuisine:occupation"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Occupation_Cuisine"
+    }
+  },
+  "Occupation_SalleA -\u003e mqtt:topic:mosquitto:salle_a:occupation": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "salle_a",
+          "occupation"
+        ],
+        "uid": "mqtt:topic:mosquitto:salle_a:occupation"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Occupation_SalleA"
+    }
+  },
+  "Occupation_SalleB -\u003e mqtt:topic:mosquitto:salle_b:occupation": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "salle_b",
+          "occupation"
+        ],
+        "uid": "mqtt:topic:mosquitto:salle_b:occupation"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Occupation_SalleB"
+    }
+  },
+  "Temperature_Cuisine -\u003e mqtt:topic:mosquitto:cuisine:temperature": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "cuisine",
+          "temperature"
+        ],
+        "uid": "mqtt:topic:mosquitto:cuisine:temperature"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Temperature_Cuisine"
+    }
+  },
+  "Temperature_SalleA -\u003e mqtt:topic:mosquitto:salle_a:temperature": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "salle_a",
+          "temperature"
+        ],
+        "uid": "mqtt:topic:mosquitto:salle_a:temperature"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Temperature_SalleA"
+    }
+  },
+  "Temperature_SalleB -\u003e mqtt:topic:mosquitto:salle_b:temperature": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "salle_b",
+          "temperature"
+        ],
+        "uid": "mqtt:topic:mosquitto:salle_b:temperature"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Temperature_SalleB"
+    }
+  },
+  "Thermostat_Cuisine -\u003e mqtt:topic:mosquitto:cuisine:thermostat": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "cuisine",
+          "thermostat"
+        ],
+        "uid": "mqtt:topic:mosquitto:cuisine:thermostat"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Thermostat_Cuisine"
+    }
+  },
+  "Thermostat_SalleA -\u003e mqtt:topic:mosquitto:salle_a:thermostat": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "salle_a",
+          "thermostat"
+        ],
+        "uid": "mqtt:topic:mosquitto:salle_a:thermostat"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Thermostat_SalleA"
+    }
+  },
+  "Thermostat_SalleB -\u003e mqtt:topic:mosquitto:salle_b:thermostat": {
+    "class": "org.openhab.core.thing.link.ItemChannelLink",
+    "value": {
+      "channelUID": {
+        "segments": [
+          "mqtt",
+          "topic",
+          "mosquitto",
+          "salle_b",
+          "thermostat"
+        ],
+        "uid": "mqtt:topic:mosquitto:salle_b:thermostat"
+      },
+      "configuration": {
+        "properties": {}
+      },
+      "itemName": "Thermostat_SalleB"
+    }
+  }
+}

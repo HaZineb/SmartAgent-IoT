@@ -1,0 +1,247 @@
+{
+  "mqtt:broker:mosquitto": {
+    "class": "org.openhab.core.thing.internal.ThingStorageEntity",
+    "value": {
+      "isBridge": true,
+      "channels": [],
+      "label": "SmartAgent MQTT Broker",
+      "configuration": {
+        "birthRetain": true,
+        "certificatepin": true,
+        "clientid": "f4bdfc85-e503-4570-bdd7-959f5710ce08",
+        "enableDiscovery": true,
+        "host": "mosquitto",
+        "hostnameValidated": true,
+        "keepAlive": 60,
+        "lwtQos": 0,
+        "lwtRetain": true,
+        "mqttVersion": "V3",
+        "protocol": "TCP",
+        "publickeypin": true,
+        "qos": 0,
+        "reconnectTime": 60000,
+        "secure": false,
+        "shutdownRetain": true
+      },
+      "properties": {},
+      "UID": "mqtt:broker:mosquitto",
+      "thingTypeUID": "mqtt:broker"
+    }
+  },
+  "mqtt:topic:mosquitto:cuisine": {
+    "class": "org.openhab.core.thing.internal.ThingStorageEntity",
+    "value": {
+      "isBridge": false,
+      "channels": [
+        {
+          "uid": "mqtt:topic:mosquitto:cuisine:temperature",
+          "id": "temperature",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Température Cuisine",
+          "description": "Température mesurée dans la cuisine",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "stateTopic": "batiment/cuisine/capteur/temperature"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:cuisine:luminosite",
+          "id": "luminosite",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Luminosité Cuisine",
+          "description": "Luminosité mesurée dans la cuisine",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "stateTopic": "batiment/cuisine/capteur/luminosite"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:cuisine:occupation",
+          "id": "occupation",
+          "channelTypeUID": "mqtt:switch",
+          "itemType": "Switch",
+          "kind": "STATE",
+          "label": "Occupation Cuisine",
+          "description": "Présence détectée dans la cuisine",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "off": "false",
+            "on": "true",
+            "stateTopic": "batiment/cuisine/capteur/occupation"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:cuisine:thermostat",
+          "id": "thermostat",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Thermostat Cuisine",
+          "description": "Commande de température cible pour la cuisine",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "commandTopic": "batiment/cuisine/actuateur/thermostat"
+          }
+        }
+      ],
+      "label": "Cuisine - Capteurs MQTT",
+      "bridgeUID": "mqtt:broker:mosquitto",
+      "configuration": {},
+      "properties": {},
+      "UID": "mqtt:topic:mosquitto:cuisine",
+      "thingTypeUID": "mqtt:topic",
+      "location": "Cuisine"
+    }
+  },
+  "mqtt:topic:mosquitto:salle_a": {
+    "class": "org.openhab.core.thing.internal.ThingStorageEntity",
+    "value": {
+      "isBridge": false,
+      "channels": [
+        {
+          "uid": "mqtt:topic:mosquitto:salle_a:temperature",
+          "id": "temperature",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Température Salle A",
+          "description": "Température mesurée dans la salle A",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "stateTopic": "batiment/salleA/capteur/temperature"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:salle_a:luminosite",
+          "id": "luminosite",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Luminosité Salle A",
+          "description": "Luminosité mesurée dans la salle A",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "stateTopic": "batiment/salleA/capteur/luminosite"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:salle_a:occupation",
+          "id": "occupation",
+          "channelTypeUID": "mqtt:switch",
+          "itemType": "Switch",
+          "kind": "STATE",
+          "label": "Occupation Salle A",
+          "description": "Présence détectée dans la salle A",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "off": "false",
+            "on": "true",
+            "stateTopic": "batiment/salleA/capteur/occupation"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:salle_a:thermostat",
+          "id": "thermostat",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Thermostat Salle A",
+          "description": "Commande de température cible pour la salle A",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "commandTopic": "batiment/salleA/actuateur/thermostat"
+          }
+        }
+      ],
+      "label": "Salle A - Capteurs MQTT",
+      "bridgeUID": "mqtt:broker:mosquitto",
+      "configuration": {},
+      "properties": {},
+      "UID": "mqtt:topic:mosquitto:salle_a",
+      "thingTypeUID": "mqtt:topic",
+      "location": "Salle A"
+    }
+  },
+  "mqtt:topic:mosquitto:salle_b": {
+    "class": "org.openhab.core.thing.internal.ThingStorageEntity",
+    "value": {
+      "isBridge": false,
+      "channels": [
+        {
+          "uid": "mqtt:topic:mosquitto:salle_b:temperature",
+          "id": "temperature",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Température Salle B",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "stateTopic": "batiment/salleB/capteur/temperature"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:salle_b:luminosite",
+          "id": "luminosite",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Luminosité Salle B",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "stateTopic": "batiment/salleB/capteur/luminosite"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:salle_b:occupation",
+          "id": "occupation",
+          "channelTypeUID": "mqtt:switch",
+          "itemType": "Switch",
+          "kind": "STATE",
+          "label": "Occupation Salle B",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "off": "false",
+            "on": "true",
+            "stateTopic": "batiment/salleB/capteur/occupation"
+          }
+        },
+        {
+          "uid": "mqtt:topic:mosquitto:salle_b:thermostat",
+          "id": "thermostat",
+          "channelTypeUID": "mqtt:number",
+          "itemType": "Number",
+          "kind": "STATE",
+          "label": "Thermostat Salle B",
+          "description": "Commande de température cible pour la salle B",
+          "defaultTags": [],
+          "properties": {},
+          "configuration": {
+            "commandTopic": "batiment/salleB/actuateur/thermostat"
+          }
+        }
+      ],
+      "label": "Salle B - Capteurs MQTT",
+      "bridgeUID": "mqtt:broker:mosquitto",
+      "configuration": {},
+      "properties": {},
+      "UID": "mqtt:topic:mosquitto:salle_b",
+      "thingTypeUID": "mqtt:topic",
+      "location": "Salle B"
+    }
+  }
+}
