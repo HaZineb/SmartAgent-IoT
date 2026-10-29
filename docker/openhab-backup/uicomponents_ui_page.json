@@ -1,0 +1,290 @@
+{
+  "overview": {
+    "class": "org.openhab.core.ui.components.RootUIComponent",
+    "value": {
+      "uid": "overview",
+      "tags": [],
+      "props": {
+        "parameters": [],
+        "parameterGroups": []
+      },
+      "timestamp": "Oct 28, 2026, 1:41:51 PM",
+      "component": "oh-layout-page",
+      "config": {
+        "label": "Overview"
+      },
+      "slots": {
+        "default": []
+      }
+    }
+  },
+  "smartagent_iot": {
+    "class": "org.openhab.core.ui.components.RootUIComponent",
+    "value": {
+      "uid": "smartagent_iot",
+      "tags": [],
+      "props": {
+        "parameters": [],
+        "parameterGroups": []
+      },
+      "timestamp": "Oct 29, 2026, 2:33:51 PM",
+      "component": "oh-layout-page",
+      "config": {
+        "label": "SmartAgent-IoT",
+        "sidebar": true
+      },
+      "slots": {
+        "canvas": [],
+        "default": [
+          {
+            "component": "oh-block",
+            "config": {},
+            "slots": {
+              "default": [
+                {
+                  "component": "oh-grid-row",
+                  "config": {},
+                  "slots": {
+                    "default": [
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:temperature",
+                                "item": "Temperature_SalleA",
+                                "title": "Salle A - Température"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:light",
+                                "item": "Luminosite_SalleA",
+                                "title": "Salle A - Luminosité"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:presence",
+                                "item": "Occupation_SalleA",
+                                "title": "Salle A - Occupation"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-input-card",
+                              "config": {
+                                "defaultValue": "22",
+                                "inputmode": "decimal",
+                                "item": "Thermostat_SalleA",
+                                "name": "Consigne de température",
+                                "placeholder": "Ex. : 24",
+                                "required": true,
+                                "sendButton": true,
+                                "step": 0.5,
+                                "title": "🌡️ Thermostat Salle A",
+                                "type": "number"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "component": "oh-grid-row",
+                  "config": {},
+                  "slots": {
+                    "default": [
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:temperature",
+                                "item": "Temperature_SalleB",
+                                "title": "Salle B - Température"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:light",
+                                "item": "Luminosite_SalleB",
+                                "title": "Salle B - Luminosité"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:presence",
+                                "item": "Occupation_SalleB",
+                                "title": "Salle B - Occupation"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-input-card",
+                              "config": {
+                                "defaultValue": "22",
+                                "inputmode": "decimal",
+                                "item": "Thermostat_SalleB",
+                                "name": "Consigne de température",
+                                "placeholder": "Ex. : 24",
+                                "required": true,
+                                "sendButton": true,
+                                "step": 0.5,
+                                "title": "🌡️ Thermostat Salle B",
+                                "type": "number"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "component": "oh-grid-row",
+                  "config": {},
+                  "slots": {
+                    "default": [
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:temperature",
+                                "item": "Temperature_Cuisine",
+                                "title": "Cuisine - Température"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:light",
+                                "item": "Luminosite_Cuisine",
+                                "title": "Cuisine - Luminosité"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:presence",
+                                "item": "Occupation_Cuisine",
+                                "title": "Cuisine - Occupation"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-input-card",
+                              "config": {
+                                "defaultValue": "22",
+                                "inputmode": "decimal",
+                                "item": "Thermostat_Cuisine",
+                                "name": "Consigne de température",
+                                "placeholder": "Ex. : 24",
+                                "required": true,
+                                "sendButton": true,
+                                "step": 0.5,
+                                "title": "🌡️ Thermostat Cuisine",
+                                "type": "number"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "grid": [],
+        "masonry": []
+      }
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "Coordinateur_Decision": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "String",
+      "tags": [],
+      "label": "Décision du coordinateur",
+      "category": "text"
+    }
+  },
+  "Luminosite_Cuisine": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Point"
+      ],
+      "label": "Luminosité Cuisine",
+      "category": "lightbulb"
+    }
+  },
+  "Luminosite_SalleA": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Light",
+        "Point"
+      ],
+      "label": "Luminosité Salle A",
+      "category": "lightbulb"
+    }
+  },
+  "Luminosite_SalleB": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Point"
+      ],
+      "label": "Luminosité Salle B",
+      "category": "lightbulb"
+    }
+  },
+  "Occupation_Cuisine": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Switch",
+      "tags": [
+        "Point"
+      ],
+      "label": "Occupation Cuisine",
+      "category": "presence"
+    }
+  },
+  "Occupation_SalleA": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Switch",
+      "tags": [
+        "Point"
+      ],
+      "label": "Occupation Salle A",
+      "category": "presence"
+    }
+  },
+  "Occupation_SalleB": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Switch",
+      "tags": [
+        "Point"
+      ],
+      "label": "Occupation Salle B",
+      "category": "presence"
+    }
+  },
+  "Temperature_Cuisine": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Point"
+      ],
+      "label": "Température Cuisine",
+      "category": "temperature"
+    }
+  },
+  "Temperature_SalleA": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Point"
+      ],
+      "label": "Température Salle A",
+      "category": "temperature"
+    }
+  },
+  "Temperature_SalleB": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Point"
+      ],
+      "label": "Température Salle B",
+      "category": "temperature"
+    }
+  },
+  "Thermostat_Cuisine": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Point"
+      ],
+      "label": "Thermostat Cuisine",
+      "category": "temperature"
+    }
+  },
+  "Thermostat_SalleA": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Point"
+      ],
+      "label": "Thermostat Salle A",
+      "category": "temperature"
+    }
+  },
+  "Thermostat_SalleB": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Number",
+      "tags": [
+        "Point"
+      ],
+      "label": "Thermostat Salle B",
+      "category": "temperature"
+    }
+  }
+}

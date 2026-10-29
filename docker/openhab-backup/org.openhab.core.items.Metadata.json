@@ -1,0 +1,50 @@
+{
+  "stateDescription:Temperature_Cuisine": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "stateDescription",
+          "Temperature_Cuisine"
+        ],
+        "uid": "stateDescription:Temperature_Cuisine"
+      },
+      "value": " ",
+      "configuration": {
+        "pattern": "%.2f °C"
+      }
+    }
+  },
+  "stateDescription:Temperature_SalleA": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "stateDescription",
+          "Temperature_SalleA"
+        ],
+        "uid": "stateDescription:Temperature_SalleA"
+      },
+      "value": " ",
+      "configuration": {
+        "pattern": "%.2f °C"
+      }
+    }
+  },
+  "stateDescription:Temperature_SalleB": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "stateDescription",
+          "Temperature_SalleB"
+        ],
+        "uid": "stateDescription:Temperature_SalleB"
+      },
+      "value": " ",
+      "configuration": {
+        "pattern": "%.2f °C"
+      }
+    }
+  }
+}
