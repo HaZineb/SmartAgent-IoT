@@ -13,33 +13,46 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Simulateur IoT du projet SmartAgent-IoT.
  *
- * Simule trois pièces possédant chacune :
- * - un capteur de température ;
- * - un capteur de luminosité ;
+ * Simule trois pieces, chacune avec :
+ * - un capteur de temperature ;
+ * - un capteur de luminosite ;
  * - un capteur d'occupation.
  *
  * Publie les neuf mesures toutes les cinq secondes.
+ * Recoit les consignes des thermostats via MQTT.
  *
- * Le simulateur reçoit aussi les consignes des thermostats
- * via MQTT. La température évolue progressivement vers
- * la consigne demandée.
+ * Mode de demonstration :
+ * le capteur de temperature de Salle A cesse de publier
+ * pendant 40 secondes, puis reprend automatiquement.
+ * Les huit autres capteurs continuent de fonctionner.
  */
 public class SensorSimulator {
 
-    // Adresse de Mosquitto depuis notre programme Java local.
+    // Adresse du broker MQTT Mosquitto.
     private static final String BROKER = "tcp://localhost:1883";
 
-    // Durée entre deux cycles de simulation.
+    // Intervalle de publication des capteurs : 5 secondes.
     private static final long INTERVALLE_MS = 5000;
 
-    // Températures minimales et maximales acceptées.
+    // Limites de temperature du simulateur.
     private static final double TEMP_MIN = 18.0;
     private static final double TEMP_MAX = 28.0;
 
-    // Vitesse maximale de régulation : 0,2 °C par cycle.
+    // Variation maximale vers la consigne par cycle.
     private static final double PAS_THERMOSTAT = 0.2;
 
-    // Trois pièces avec leurs valeurs initiales.
+    // Configuration du scenario de panne.
+    // false : simulation normale sans panne.
+    // true  : panne automatique de temperature Salle A.
+    private static final boolean MODE_TEST_PANNE = true;
+
+    // La panne commence apres 20 secondes.
+    private static final long DEBUT_PANNE_MS = 20000;
+
+    // La panne dure 40 secondes.
+    private static final long DUREE_PANNE_MS = 40000;
+
+    // Les trois pieces du batiment.
     private static final Piece[] PIECES = {
             new Piece("salleA", 22.0, 450, true),
             new Piece("salleB", 20.0, 350, false),
@@ -47,11 +60,10 @@ public class SensorSimulator {
     };
 
     /**
-     * Représente l'état des capteurs et du thermostat
-     * d'une pièce.
+     * Etat des capteurs et du thermostat d'une piece.
      *
-     * synchronized protège les données partagées entre
-     * le thread de simulation et le callback MQTT.
+     * Les methodes synchronized protegent les donnees
+     * partagees entre la simulation et le callback MQTT.
      */
     private static class Piece {
 
@@ -61,13 +73,15 @@ public class SensorSimulator {
         private int luminosite;
         private boolean occupation;
 
-        // Consigne du thermostat. null signifie qu'aucune
-        // consigne n'a encore été reçue.
+        // null signifie aucune consigne recue.
         private Double consigne = null;
 
-        Piece(String nom, double temperature,
-              int luminosite, boolean occupation) {
-
+        Piece(
+                String nom,
+                double temperature,
+                int luminosite,
+                boolean occupation
+        ) {
             this.nom = nom;
             this.temperature = temperature;
             this.luminosite = luminosite;
@@ -75,16 +89,14 @@ public class SensorSimulator {
         }
 
         /**
-         * Enregistre une nouvelle température cible.
+         * Enregistre la nouvelle consigne du thermostat.
          */
         synchronized void definirConsigne(double valeur) {
             consigne = valeur;
         }
 
         /**
-         * Fait évoluer les mesures puis retourne un instantané.
-         * L'instantané permet de publier des valeurs cohérentes
-         * sans conserver le verrou pendant l'envoi MQTT.
+         * Actualise les capteurs et retourne un instantane.
          */
         synchronized Mesures actualiser() {
 
@@ -93,12 +105,9 @@ public class SensorSimulator {
 
             if (consigne != null) {
 
-                // Écart entre la température actuelle et la cible.
+                // La temperature se rapproche de la consigne.
                 double ecart = consigne - temperature;
 
-                // Déplacement progressif vers la consigne.
-                // Si l'écart est petit, on applique uniquement
-                // l'écart restant pour ne pas dépasser la cible.
                 double variation = Math.max(
                         -PAS_THERMOSTAT,
                         Math.min(PAS_THERMOSTAT, ecart)
@@ -108,18 +117,17 @@ public class SensorSimulator {
 
             } else {
 
-                // Sans consigne, la température subit une
-                // petite variation aléatoire naturelle.
+                // Variation naturelle sans consigne.
                 temperature += hasard.nextDouble(-0.3, 0.3);
             }
 
-            // Respect des limites de température.
+            // Respect des limites de temperature.
             temperature = Math.max(
                     TEMP_MIN,
                     Math.min(TEMP_MAX, temperature)
             );
 
-            // Évolution progressive de la luminosité.
+            // Variation de la luminosite.
             luminosite += hasard.nextInt(-30, 31);
 
             luminosite = Math.max(
@@ -127,20 +135,21 @@ public class SensorSimulator {
                     Math.min(800, luminosite)
             );
 
-            // La présence change avec une probabilité de 10 %
-            // à chaque cycle.
+            // Probabilite de 10 % de changement d'occupation.
             if (hasard.nextDouble() < 0.10) {
                 occupation = !occupation;
             }
 
             return new Mesures(
-                    temperature, luminosite, occupation
+                    temperature,
+                    luminosite,
+                    occupation
             );
         }
     }
 
     /**
-     * Instantané des trois mesures d'une pièce.
+     * Instantane des mesures d'une piece.
      */
     private static class Mesures {
 
@@ -148,9 +157,11 @@ public class SensorSimulator {
         final int luminosite;
         final boolean occupation;
 
-        Mesures(double temperature, int luminosite,
-                boolean occupation) {
-
+        Mesures(
+                double temperature,
+                int luminosite,
+                boolean occupation
+        ) {
             this.temperature = temperature;
             this.luminosite = luminosite;
             this.occupation = occupation;
@@ -158,11 +169,12 @@ public class SensorSimulator {
     }
 
     /**
-     * Recherche une pièce à partir de son nom.
+     * Recherche une piece par son nom.
      */
     private static Piece trouverPiece(String nom) {
 
         for (Piece piece : PIECES) {
+
             if (piece.nom.equals(nom)) {
                 return piece;
             }
@@ -171,9 +183,27 @@ public class SensorSimulator {
         return null;
     }
 
+    /**
+     * Determine si le capteur de temperature de Salle A
+     * doit etre temporairement indisponible.
+     */
+    private static boolean panneTemperatureSalleA(
+            String nomPiece,
+            long tempsEcoule
+    ) {
+
+        if (!MODE_TEST_PANNE) {
+            return false;
+        }
+
+        return nomPiece.equals("salleA")
+                && tempsEcoule >= DEBUT_PANNE_MS
+                && tempsEcoule < DEBUT_PANNE_MS + DUREE_PANNE_MS;
+    }
+
     public static void main(String[] args) throws Exception {
 
-        // Création du client MQTT avec un identifiant unique.
+        // Client MQTT avec identifiant unique.
         MqttClient client = new MqttClient(
                 BROKER,
                 MqttClient.generateClientId()
@@ -181,8 +211,7 @@ public class SensorSimulator {
 
         try {
 
-            // Le callback est exécuté lorsqu'un événement MQTT
-            // survient, notamment la réception d'une commande.
+            // Reception des commandes MQTT.
             client.setCallback(new MqttCallback() {
 
                 @Override
@@ -200,13 +229,12 @@ public class SensorSimulator {
                         MqttMessage message
                 ) {
 
-                    // Lecture du contenu du message MQTT.
                     String contenu = new String(
                             message.getPayload(),
                             StandardCharsets.UTF_8
                     ).trim();
 
-                    // Format attendu :
+                    // Format :
                     // batiment/{piece}/actuateur/thermostat
                     String[] parties = topic.split("/");
 
@@ -224,36 +252,33 @@ public class SensorSimulator {
                     Piece piece = trouverPiece(parties[1]);
 
                     if (piece == null) {
+
                         System.err.println(
-                                "Pièce inconnue : " + parties[1]
+                                "Piece inconnue : " + parties[1]
                         );
                         return;
                     }
 
                     try {
 
-                        // La valeur MQTT représente une température
-                        // cible, par exemple "24.0".
                         double cible = Double.parseDouble(contenu);
 
-                        // Rejet des consignes non finies ou
-                        // hors de la plage autorisée.
+                        // Verification de la consigne.
                         if (!Double.isFinite(cible)
                                 || cible < TEMP_MIN
                                 || cible > TEMP_MAX) {
 
                             System.err.println(
-                                    "Consigne refusée : " + contenu
+                                    "Consigne refusee : " + contenu
                             );
                             return;
                         }
 
-                        // Mise à jour de la consigne de la pièce.
                         piece.definirConsigne(cible);
 
                         System.out.println(
-                                "Commande reçue : " + piece.nom
-                                        + " -> " + cible + " °C"
+                                "Commande recue : " + piece.nom
+                                        + " -> " + cible + " degres"
                         );
 
                     } catch (NumberFormatException e) {
@@ -269,49 +294,137 @@ public class SensorSimulator {
                 public void deliveryComplete(
                         IMqttDeliveryToken token
                 ) {
-                    // Aucun traitement supplémentaire nécessaire
-                    // après la confirmation d'une publication.
+                    // Aucune action supplementaire.
                 }
             });
 
-            // Connexion au broker MQTT.
+            // Connexion a Mosquitto.
             client.connect();
 
-            System.out.println("Connecté à Mosquitto !");
+            System.out.println("Connecte a Mosquitto !");
 
-            // Abonnement aux commandes des trois thermostats.
-            // Le caractère + remplace un seul niveau du topic,
-            // ici le nom de la pièce.
+            // Abonnement aux commandes des thermostats.
             client.subscribe(
                     "batiment/+/actuateur/thermostat"
             );
 
             System.out.println(
-                    "Abonné aux commandes des thermostats."
+                    "Abonne aux commandes des thermostats."
             );
+
+            if (MODE_TEST_PANNE) {
+
+                System.out.println(
+                        "MODE TEST PANNE ACTIVE"
+                );
+
+                System.out.println(
+                        "Capteur concerne : temperature Salle A"
+                );
+
+                System.out.println(
+                        "Debut de panne : 20 secondes"
+                );
+
+                System.out.println(
+                        "Duree de panne : 40 secondes"
+                );
+            }
+
+            // Point de depart de la simulation.
+            long debutSimulation = System.currentTimeMillis();
+
+            boolean panneAnnoncee = false;
+            boolean repriseAnnoncee = false;
 
             // Simulation continue.
             while (true) {
 
+                long tempsEcoule =
+                        System.currentTimeMillis() - debutSimulation;
+
                 for (Piece piece : PIECES) {
 
-                    // Mise à jour des mesures de la pièce.
+                    // Actualisation des trois mesures.
                     Mesures mesures = piece.actualiser();
 
-                    // Publication de la température avec
-                    // deux chiffres après le point décimal.
-                    publier(
-                            client,
-                            piece.nom,
-                            "temperature",
-                            String.format(
-                                    Locale.US,
-                                    "%.2f",
-                                    mesures.temperature
-                            )
-                    );
+                    boolean capteurEnPanne =
+                            panneTemperatureSalleA(
+                                    piece.nom,
+                                    tempsEcoule
+                            );
 
-                    // Publication de la luminosité.
+                    // Publication de la temperature.
+                    if (capteurEnPanne) {
+
+                        if (!panneAnnoncee) {
+
+                            System.out.println(
+                                    "================================"
+                            );
+
+                            System.out.println(
+                                    "PANNE SIMULEE : "
+                                            + "temperature Salle A"
+                            );
+
+                            System.out.println(
+                                    "Arret des publications MQTT "
+                                            + "de ce capteur"
+                            );
+
+                            System.out.println(
+                                    "Les autres capteurs restent actifs"
+                            );
+
+                            System.out.println(
+                                    "================================"
+                            );
+
+                            panneAnnoncee = true;
+                        }
+
+                    } else {
+
+                        // Premiere publication apres la panne.
+                        if (piece.nom.equals("salleA")
+                                && panneAnnoncee
+                                && !repriseAnnoncee) {
+
+                            System.out.println(
+                                    "================================"
+                            );
+
+                            System.out.println(
+                                    "RECUPERATION DU CAPTEUR"
+                            );
+
+                            System.out.println(
+                                    "Temperature Salle A : "
+                                            + "publication MQTT retablie"
+                            );
+
+                            System.out.println(
+                                    "================================"
+                            );
+
+                            repriseAnnoncee = true;
+                        }
+
+                        publier(
+                                client,
+                                piece.nom,
+                                "temperature",
+                                String.format(
+                                        Locale.US,
+                                        "%.2f",
+                                        mesures.temperature
+                                )
+                        );
+                    }
+
+                    // Publication de la luminosite.
+                    // Elle continue meme pendant la panne.
                     publier(
                             client,
                             piece.nom,
@@ -320,6 +433,7 @@ public class SensorSimulator {
                     );
 
                     // Publication de l'occupation.
+                    // Elle continue meme pendant la panne.
                     publier(
                             client,
                             piece.nom,
@@ -336,8 +450,7 @@ public class SensorSimulator {
 
         } finally {
 
-            // Fermeture des ressources si la simulation
-            // se termine ou rencontre une erreur.
+            // Fermeture propre de la connexion MQTT.
             if (client.isConnected()) {
                 client.disconnect();
             }
@@ -347,13 +460,13 @@ public class SensorSimulator {
     }
 
     /**
-     * Publie une valeur de capteur sur MQTT.
+     * Publie une mesure sur MQTT.
      *
-     * @param client client connecté à Mosquitto
-     * @param piece nom de la pièce
+     * @param client client MQTT
+     * @param piece nom de la piece
      * @param capteur type de capteur
-     * @param valeur valeur transmise
-     * @throws Exception si la publication échoue
+     * @param valeur valeur a publier
+     * @throws Exception si la publication echoue
      */
     private static void publier(
             MqttClient client,
@@ -362,19 +475,15 @@ public class SensorSimulator {
             String valeur
     ) throws Exception {
 
-        // Construction du topic de mesure.
         String topic = "batiment/" + piece
                 + "/capteur/" + capteur;
 
-        // Encodage de la valeur en UTF-8.
         MqttMessage message = new MqttMessage(
                 valeur.getBytes(StandardCharsets.UTF_8)
         );
 
-        // Publication vers Mosquitto.
         client.publish(topic, message);
 
-        // Affichage pour vérifier les échanges MQTT.
         System.out.println(topic + " = " + valeur);
     }
 }
