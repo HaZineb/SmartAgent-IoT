@@ -8,7 +8,7 @@
       "configuration": {
         "birthRetain": true,
         "certificatepin": true,
-        "clientid": "f4bdfc85-e503-4570-bdd7-959f5710ce08",
+        "clientid": "c64e5b1a-1c97-4183-ae72-bc062d872808",
         "enableDiscovery": true,
         "host": "mosquitto",
         "hostnameValidated": true,
