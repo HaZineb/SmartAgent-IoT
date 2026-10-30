@@ -1,0 +1,57 @@
+
+rule "Economie energie Salle A"
+when
+    Item Occupation_SalleA changed to OFF
+then
+    logInfo("SmartAgent-IoT", "Salle A vide : thermostat regle a 18 degres")
+    Thermostat_SalleA.sendCommand(18)
+end
+
+rule "Economie energie Salle B"
+when
+    Item Occupation_SalleB changed to OFF
+then
+    logInfo("SmartAgent-IoT", "Salle B vide : thermostat regle a 18 degres")
+    Thermostat_SalleB.sendCommand(18)
+end
+
+rule "Economie energie Cuisine"
+when
+    Item Occupation_Cuisine changed to OFF
+then
+    logInfo("SmartAgent-IoT", "Cuisine vide : thermostat regle a 18 degres")
+    Thermostat_Cuisine.sendCommand(18)
+end
+
+rule "Alerte temperature Salle A"
+when
+    Item Temperature_SalleA changed
+then
+    if (Temperature_SalleA.state instanceof Number) {
+        if ((Temperature_SalleA.state as Number).doubleValue > 30) {
+            logWarn("SmartAgent-IoT", "ALERTE : temperature elevee Salle A")
+        }
+    }
+end
+
+rule "Alerte temperature Salle B"
+when
+    Item Temperature_SalleB changed
+then
+    if (Temperature_SalleB.state instanceof Number) {
+        if ((Temperature_SalleB.state as Number).doubleValue > 30) {
+            logWarn("SmartAgent-IoT", "ALERTE : temperature elevee Salle B")
+        }
+    }
+end
+
+rule "Alerte temperature Cuisine"
+when
+    Item Temperature_Cuisine changed
+then
+    if (Temperature_Cuisine.state instanceof Number) {
+        if ((Temperature_Cuisine.state as Number).doubleValue > 30) {
+            logWarn("SmartAgent-IoT", "ALERTE : temperature elevee Cuisine")
+        }
+    }
+end

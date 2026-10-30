@@ -1,4 +1,148 @@
 {
+  "expire:Luminosite_Cuisine": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Luminosite_Cuisine"
+        ],
+        "uid": "expire:Luminosite_Cuisine"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
+  "expire:Luminosite_SalleA": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Luminosite_SalleA"
+        ],
+        "uid": "expire:Luminosite_SalleA"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
+  "expire:Luminosite_SalleB": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Luminosite_SalleB"
+        ],
+        "uid": "expire:Luminosite_SalleB"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
+  "expire:Occupation_Cuisine": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Occupation_Cuisine"
+        ],
+        "uid": "expire:Occupation_Cuisine"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
+  "expire:Occupation_SalleA": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Occupation_SalleA"
+        ],
+        "uid": "expire:Occupation_SalleA"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
+  "expire:Occupation_SalleB": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Occupation_SalleB"
+        ],
+        "uid": "expire:Occupation_SalleB"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
+  "expire:Temperature_Cuisine": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Temperature_Cuisine"
+        ],
+        "uid": "expire:Temperature_Cuisine"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
+  "expire:Temperature_SalleA": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Temperature_SalleA"
+        ],
+        "uid": "expire:Temperature_SalleA"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
+  "expire:Temperature_SalleB": {
+    "class": "org.openhab.core.items.Metadata",
+    "value": {
+      "key": {
+        "segments": [
+          "expire",
+          "Temperature_SalleB"
+        ],
+        "uid": "expire:Temperature_SalleB"
+      },
+      "value": "30s",
+      "configuration": {
+        "state": "UNDEF"
+      }
+    }
+  },
   "stateDescription:Temperature_Cuisine": {
     "class": "org.openhab.core.items.Metadata",
     "value": {

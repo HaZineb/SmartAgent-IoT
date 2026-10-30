@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -353,7 +354,7 @@ public class AgentPiece extends UnicastRemoteObject implements IAgentPiece {
                 // Identifiant unique : deux clients avec le même ID s'éjecteraient mutuellement du broker.
                 String idClient = "agent-" + nom + "-" + UUID.randomUUID().toString().substring(0, 8);
                 MqttClient nouveau = new MqttClient(urlBroker, idClient, new MemoryPersistence());
-                nouveau.setTimeToWait(5_000); // un publish ne bloque jamais un thread RMI plus de 5 s
+                nouveau.setTimeToWait(15_000); // laisse à la connexion MQTT le temps de se terminer (timeout connexion : 10 s)
                 nouveau.setCallback(new RappelMqtt());
                 client = nouveau;
             }
@@ -362,12 +363,17 @@ public class AgentPiece extends UnicastRemoteObject implements IAgentPiece {
             options.setCleanSession(true);
             options.setConnectionTimeout(10);
             options.setKeepAliveInterval(20);
-            client.connect(options);
+            if (!client.isConnected()) {
+                client.connect(options);
+            }
             abonner();
             LOG.info("[" + nom + "] Connecté au broker " + urlBroker);
         } catch (MqttException e) {
-            LOG.warning("[" + nom + "] Broker MQTT injoignable (" + urlBroker + ") : nouvel essai dans 5 s");
-            surveillance.schedule(this::connecterMqtt, 5, TimeUnit.SECONDS);
+            LOG.log(Level.WARNING,
+                    "[" + nom + "] Échec MQTT (" + urlBroker + ") : nouvel essai dans 5 s", e);
+            if (surveillance != null && !surveillance.isShutdown()) {
+                surveillance.schedule(this::connecterMqtt, 5, TimeUnit.SECONDS);
+            }
         }
     }
 
@@ -428,11 +434,14 @@ public class AgentPiece extends UnicastRemoteObject implements IAgentPiece {
         }
         try {
             MqttClient c = client;
-            if (c != null && c.isConnected()) {
-                c.disconnect(1_000);
+            if (c != null) {
+                if (c.isConnected()) {
+                    c.disconnect(1_000);
+                }
+                c.close();
             }
         } catch (MqttException e) {
-            // Arrêt en cours : on ignore.
+            LOG.log(Level.FINE, "[" + nom + "] Fermeture MQTT incomplète", e);
         }
         try {
             UnicastRemoteObject.unexportObject(this, true);
@@ -488,5 +497,9 @@ public class AgentPiece extends UnicastRemoteObject implements IAgentPiece {
         agent.demarrer();
         // Ctrl+C : désinscription propre du registre.
         Runtime.getRuntime().addShutdownHook(new Thread(() -> agent.arreter(registre)));
+
+        // Garde le programme actif tant que l'utilisateur n'a pas demandé son arrêt (Ctrl+C).
+        // Sans cette attente, exec:java peut terminer le programme et interrompre les threads MQTT.
+        new CountDownLatch(1).await();
     }
 }

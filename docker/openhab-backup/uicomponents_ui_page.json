@@ -27,7 +27,7 @@
         "parameters": [],
         "parameterGroups": []
       },
-      "timestamp": "Oct 29, 2026, 2:33:51 PM",
+      "timestamp": "Oct 29, 2026, 10:10:24 PM",
       "component": "oh-layout-page",
       "config": {
         "label": "SmartAgent-IoT",
@@ -270,6 +270,92 @@
                                 "step": 0.5,
                                 "title": "🌡️ Thermostat Cuisine",
                                 "type": "number"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "component": "oh-grid-row",
+                  "config": {},
+                  "slots": {
+                    "default": [
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "background": "\u003d(items.Agent_SalleA_Statut.state \u003d\u003d\u003d \"ONLINE\") ? \"#166534\" : \"#991B1B\"",
+                                "color": "white",
+                                "icon": "\u003d(items.Agent_SalleA_Statut.state \u003d\u003d\u003d \"ONLINE\") ? \"f7:wifi\" : \"f7:wifi_slash\"",
+                                "item": "Agent_SalleA_Statut",
+                                "title": "🤖 Agent Salle A"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "background": "\u003d(items.Agent_SalleB_Statut.state \u003d\u003d\u003d \"ONLINE\") ? \"#166534\" : \"#991B1B\"",
+                                "color": "white",
+                                "icon": "\u003d(items.Agent_SalleB_Statut.state \u003d\u003d\u003d \"ONLINE\") ? \"f7:wifi\" : \"f7:wifi_slash\"",
+                                "item": "Agent_SalleB_Statut",
+                                "title": "🤖 Agent Salle B"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "background": "\u003d(items.Agent_Cuisine_Statut.state \u003d\u003d\u003d \"ONLINE\") ? \"#166534\" : \"#991B1B\"",
+                                "color": "white",
+                                "icon": "\u003d(items.Agent_Cuisine_Statut.state \u003d\u003d\u003d \"ONLINE\") ? \"f7:wifi\" : \"f7:wifi_slash\"",
+                                "item": "Agent_Cuisine_Statut",
+                                "title": "🤖 Agent Cuisine"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "component": "oh-grid-row",
+                  "config": {},
+                  "slots": {
+                    "default": [
+                      {
+                        "component": "oh-grid-col",
+                        "config": {},
+                        "slots": {
+                          "default": [
+                            {
+                              "component": "oh-label-card",
+                              "config": {
+                                "icon": "oh:settings",
+                                "item": "Coordinateur_Decision",
+                                "title": "🤖 Décision intelligente du coordinateur"
                               }
                             }
                           ]

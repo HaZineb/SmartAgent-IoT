@@ -1,4 +1,34 @@
 {
+  "Agent_Cuisine_Statut": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "String",
+      "tags": [],
+      "label": "Agent Cuisine",
+      "category": "network"
+    }
+  },
+  "Agent_SalleA_Statut": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "String",
+      "tags": [],
+      "label": "Agent Salle A",
+      "category": "network"
+    }
+  },
+  "Agent_SalleB_Statut": {
+    "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "String",
+      "tags": [],
+      "label": "\tAgent Salle B",
+      "category": "network"
+    }
+  },
   "Coordinateur_Decision": {
     "class": "org.openhab.core.items.ManagedItemProvider$PersistedItem",
     "value": {
